@@ -14,4 +14,8 @@ export class WelcomeDataService {
     return this.httpClient.get<HelloWorldBean>("http://localhost:8080/hello-world-bean");
   }
 
+  getResponseMessageWithParameter(name:string) {
+    return this.httpClient.get<HelloWorldBean>(`http://localhost:8080/hello-world-bean/${name}`);
+  }
+
 }

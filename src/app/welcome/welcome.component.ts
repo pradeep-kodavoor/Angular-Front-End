@@ -28,6 +28,13 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
+  getMessageWithParameter(){
+    this.welcomeDataService.getResponseMessageWithParameter(this.name).subscribe(
+      response => this.handleSuccessResponse(response),
+      error => this.handleErrorResponse(error)
+    );
+  }
+
   handleSuccessResponse(response){
     this.welcomeMessage = response.message;
   }
