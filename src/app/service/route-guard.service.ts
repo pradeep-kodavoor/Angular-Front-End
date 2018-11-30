@@ -11,13 +11,13 @@ export class RouteGuardService implements CanActivate{
     private router:Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-    console.log(this.hardcodedAuthenticationService.isUserLoggedIn());
+    //console.log(this.hardcodedAuthenticationService.isUserLoggedIn());
     if (this.hardcodedAuthenticationService.isUserLoggedIn()){
-      console.log('Guard Check Pass')
+      //console.log('Guard Check Pass')
       return true;
     } else {
       this.router.navigate(['login']);
-      console.log('Guard Check Fail')
+      //console.log('Guard Check Fail')
       return false;
     }   
   }  

@@ -14,7 +14,21 @@ export class TodoDataService {
   }
 
   deleteTodo(id:number){
-    return this.httpClient.delete<Todo>(`http://localhost:8080/delete-todo/${id}`);
+    return this.httpClient.delete(`http://localhost:8080/todos/${id}`);
+  }
+
+  getTodoById(id:number){
+    return this.httpClient.get<Todo>(`http://localhost:8080/todos/${id}`);
+  }
+
+  updateTodo(todo:Todo,id) {
+    return this.httpClient.put<Todo>(`http://localhost:8080/todos/${id}`
+    ,todo);
+  }
+
+  createTodo(todo:Todo) {
+    return this.httpClient.post<Todo>(`http://localhost:8080/todos`
+    ,todo);
   }
 
 }

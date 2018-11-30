@@ -19,6 +19,6 @@ export class HardcodedAuthenticationService {
   }
   logout(){
     sessionStorage.removeItem('authenticatedUser');
-    console.log(sessionStorage.getItem('authenticatedUser'));
+    //console.log(sessionStorage.getItem('authenticatedUser'));
   }
 }
