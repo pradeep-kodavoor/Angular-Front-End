@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
 
   handleLogin() {
     //if (this.username === 'pradeep' && this.password === 'dummy') {
-    console.log('Before : '+sessionStorage.getItem('authenticatedUser'))
+    //console.log('Before : '+sessionStorage.getItem('authenticatedUser'))
     if (this.hardcodedAuthenticationService.authenticate(this.username,this.password)) {
       sessionStorage.setItem('authenticatedUser',this.username)
-      console.log('After : '+sessionStorage.getItem('authenticatedUser'))
+      //console.log('After : '+sessionStorage.getItem('authenticatedUser'))
       this.router.navigate(['welcome',this.username]);
       this.invalidLogin = false;
     } else {

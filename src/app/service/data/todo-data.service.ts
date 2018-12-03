@@ -9,25 +9,25 @@ export class TodoDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getListOfTodos(){
-    return this.httpClient.get<Todo[]>("http://localhost:8080/todos");
+  getListOfTodos(username:string){
+    return this.httpClient.get<Todo[]>("http://localhost:8080/users/${username}/todos");
   }
 
-  deleteTodo(id:number){
-    return this.httpClient.delete(`http://localhost:8080/todos/${id}`);
+  deleteTodo(username:string,id:number){
+    return this.httpClient.delete(`http://localhost:8080/users/${username}/todos/${id}`);
   }
 
-  getTodoById(id:number){
-    return this.httpClient.get<Todo>(`http://localhost:8080/todos/${id}`);
+  getTodoById(username:string,id:number){
+    return this.httpClient.get<Todo>(`http://localhost:8080/users/${username}/todos/${id}`);
   }
 
-  updateTodo(todo:Todo,id) {
-    return this.httpClient.put<Todo>(`http://localhost:8080/todos/${id}`
+  updateTodo(username:string,todo:Todo,id) {
+    return this.httpClient.put<Todo>(`http://localhost:8080/users/${username}/todos/${id}`
     ,todo);
   }
 
-  createTodo(todo:Todo) {
-    return this.httpClient.post<Todo>(`http://localhost:8080/todos`
+  createTodo(username:string,todo:Todo) {
+    return this.httpClient.post<Todo>(`http://localhost:8080/users/${username}/todos`
     ,todo);
   }
 
