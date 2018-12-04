@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HelloWorldBean } from 'src/app/welcome/welcome.component';
+import { API_URL } from 'src/app/app.constants';
 
 
 @Injectable({
@@ -16,15 +17,12 @@ export class WelcomeDataService {
 
   getResponseMessageWithParameter(name:string) {
 
-    let basicAuthHeadStr = this.createBasicAuthenticationHttpHeader()
-
-    let headers = new HttpHeaders(
-      {
-        Authorization:basicAuthHeadStr
-      }
-      );
-
-    return this.httpClient.get<HelloWorldBean>(`http://localhost:8080/hello-world-bean/${name}`,{headers:headers});
+    let basicAuthHeadStr = this.createBasicAuthenticationHttpHeader();
+    //let basicAuthHeadStr = 'Basic' + window.btoa('pradeep' +':'+ 'dummy')
+    let headers = new HttpHeaders({ 
+      Authorization:basicAuthHeadStr
+      })
+    return this.httpClient.get<HelloWorldBean>(`${API_URL}/hello-world-bean/${name}`,{headers})
   }
 
   //Failed to load http://localhost:8080/hello-world-bean/pradeep: 
