@@ -11,11 +11,12 @@ export class BasicAuthenticationService {
   constructor(private httpClient:HttpClient) { }
 
   executeAuthenticationService(username:string,password:string){
-    let basicAuthHeadStr = 'Basic' + window.btoa(username +':'+ password)
+    let basicAuthHeadStr = 'Basic ' + window.btoa(username +':'+ password)
     let headers = new HttpHeaders({ 
       Authorization:basicAuthHeadStr
       })
-    return this.httpClient.get<AuthenticationBean>(`${API_URL}/basicauth`,{headers}).pipe(
+    return this.httpClient.get<AuthenticationBean>(`${API_URL}/basicauth`,{headers})
+    .pipe(
       map(data => {
         sessionStorage.setItem('authenticatedUser',username)
         sessionStorage.setItem('token',basicAuthHeadStr)
@@ -28,16 +29,15 @@ export class BasicAuthenticationService {
     let user = sessionStorage.getItem('authenticatedUser');
     return !(user === null);
   }
-  logout(){
-    sessionStorage.removeItem('authenticatedUser');
-  }
-
   getAuthenticatedUser(){
     return sessionStorage.getItem('authenticatedUser');
   }
-  
   getAuthenticatedToken(){
     return sessionStorage.getItem('token');
+  }
+  logout(){
+    sessionStorage.removeItem('authenticatedUser');
+    sessionStorage.removeItem('token');
   }
 }
 
