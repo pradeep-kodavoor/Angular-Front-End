@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../app.constants';
+import { HelloWorldBean } from '../welcome/welcome.component';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,9 @@ import { API_URL } from '../app.constants';
 export class BasicAuthenticationService {
 
   constructor(private httpClient:HttpClient) { }
+  jwtToken:string
 
-  executeAuthenticationService(username:string,password:string){
+  executeBasicAuthenticationService(username:string,password:string){
     let basicAuthHeadStr = 'Basic ' + window.btoa(username +':'+ password)
     let headers = new HttpHeaders({ 
       Authorization:basicAuthHeadStr
@@ -25,6 +27,21 @@ export class BasicAuthenticationService {
     )
 
   }
+
+  executeJWTAuthenticationService(username:string,password:string){
+    
+    return this.httpClient.post<JwtTokenResponse>(`${API_URL}/authenticate`,{username:username,password:password}).pipe(
+      map( data=> {
+        sessionStorage.setItem('authenticatedUser',username)
+        let jwtToken = 'Bearer '+data.token
+        sessionStorage.setItem('token',jwtToken)
+        console.log(data.token)
+        return data
+      })
+    )
+
+  }
+
   isUserLoggedIn(){
     let user = sessionStorage.getItem('authenticatedUser');
     return !(user === null);
@@ -35,6 +52,7 @@ export class BasicAuthenticationService {
   getAuthenticatedToken(){
     return sessionStorage.getItem('token');
   }
+
   logout(){
     sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('token');
@@ -43,4 +61,8 @@ export class BasicAuthenticationService {
 
 export class AuthenticationBean {
   constructor (public message:string){}
+}
+
+export class JwtTokenResponse {
+  constructor (public token:string) {}
 }
