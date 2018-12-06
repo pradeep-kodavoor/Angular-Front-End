@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../app.constants';
-import { HelloWorldBean } from '../welcome/welcome.component';
 
 @Injectable({
   providedIn: 'root'
